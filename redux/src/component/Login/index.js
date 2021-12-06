@@ -30,7 +30,7 @@ const Login = () => {
         token: result.data.token,
       };
       console.log(data);
-      dispatch(login(data))
+      dispatch(log(data))
 
       navigate("/task");
       console.log(result.data.token);

@@ -1,17 +1,36 @@
 import axios from "axios";
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-
 const Task = () => {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [task, setTask] = useState([]);
+  const [local, setLocal] = useState("");
+
   useEffect(() => {
     taskshow();
   }, []);
-
+ useEffect(() => {
+   const savedToken = localStorage.getItem("token");
+   setLocal(savedToken);
+   taskshow();
+ }, []);
+ const dispatch = useDispatch();
+ const state = useSelector((state) => {
+   return {
+     signin: state.Signin,
+     tasks: state.Tasks,
+   };
+ });
   const taskshow = async () => {
-    const result = await axios.get(`${BASE_URL}/gettask`);
+    const result = await axios.get(`${BASE_URL}/gettask`,{
+    headers: {
+         Authorization: `Bearer ${local}`
+       },})
     setTask(result.data);
+    
+     
+ 
   };
   const del = async (id) => {
     try {
@@ -24,10 +43,18 @@ const Task = () => {
   const [newtask, setNewtask] = useState("");
   const addtask = async () => {
     try {
-      const res = await axios.post(`${BASE_URL}/createtask`, {
-        name: newtask,
-      });
-      taskshow();
+      const res = await axios.post(
+        `${BASE_URL}/createtask`,
+        {
+          name: newtask,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${local}`,
+          },
+        }
+      ); 
+      taskshow(local);
     } catch (error) {
       console.log(error);
     }
