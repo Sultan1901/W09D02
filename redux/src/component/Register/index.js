@@ -16,7 +16,7 @@ const Register = () => {
     const result = await axios.post(`${BASE_URL}/addusr`, {
       email: logemail,
       password: logpassword,
-      username,
+      username:username
      
     });
    navigate("/Login");};
