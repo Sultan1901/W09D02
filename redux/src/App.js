@@ -3,11 +3,13 @@ import React from "react";
 import Register from "./component/Register";
 import Login from "./component/Login";
 import Task from "./component/Task";
-import { Route , Routes } from "react-router-dom"
+import {Routes , Route} from "react-router-dom";
 
 
 function App() {
   
+
+
 
   return (
     <div >
