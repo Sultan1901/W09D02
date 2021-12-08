@@ -3,7 +3,7 @@ const instialState = {
   token: "",
 };
 
-const sign = (stste = instialState, action) => {
+const sign = (state = instialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -16,7 +16,7 @@ const sign = (stste = instialState, action) => {
       return payload;
 
     default:
-      return stste;
+      return state;
   }
 };
 export default sign;
@@ -28,7 +28,7 @@ return {
 }
 export const logout = (data)=>{
     return {
-        tyape:"LOGOUT",
+        type:"LOGOUT",
         payload : data
     }
 }
